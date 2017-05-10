@@ -3,8 +3,8 @@ import rospy
 from krssg_ssl_msgs.msg import gr_Robot_Command
 from krssg_ssl_msgs.msg import gr_Commands
 
-pub = rospy.Publisher('/global_bot_data', gr_Commands, queue_size=1000)
-rospy.init_node('bot_node', anonymous=True)
+pub = rospy.Publisher('/bot_data', gr_Commands, queue_size=1000)
+rospy.init_node('skills_node', anonymous=True)
 
 gr_command = gr_Robot_Command()
 final_command = gr_Commands()
