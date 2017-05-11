@@ -9,8 +9,11 @@ rospy.init_node('skills_node', anonymous=True)
 gr_command = gr_Robot_Command()
 final_command = gr_Commands()
 
-def send_command(state, bot_id, v_x, v_y, v_w, kick_power, dribble, chip_power=0):
-
+def send_command(team, bot_id, v_x, v_y, v_w, kick_power, dribble, chip_power=0):
+	"""
+		team : 'True' if the team is yellow 
+	"""
+	
 	# Set the command to each bot
 	gr_command.id          = bot_id
 	gr_command.wheelsspeed = 0
@@ -22,7 +25,7 @@ def send_command(state, bot_id, v_x, v_y, v_w, kick_power, dribble, chip_power=0
 	gr_command.spinner     = dribble
 
 	final_command.timestamp      = rospy.get_rostime().secs
-	final_command.isteamyellow   = state.isteamyellow
+	final_command.isteamyellow   = team
 	final_command.robot_commands = gr_command
 
 	# Log the commands
