@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 import rospy
+import sys
+sys.path.insert(0,'../../../tactics_py/scripts')
+import tactic_factory
 from krssg_ssl_msgs.msg import gr_Robot_Command
 from krssg_ssl_msgs.msg import gr_Commands
 
-pub = rospy.Publisher('/bot_data', gr_Commands, queue_size=1000)
-rospy.init_node('skills_node', anonymous=True)
+def init_module():
+	pub = rospy.Publisher('/bot_data', gr_Commands, queue_size=1000)
+	rospy.init_node('skills_node1', anonymous=False)
+	gr_command = gr_Robot_Command()
+	final_command = gr_Commands()
 
-gr_command = gr_Robot_Command()
-final_command = gr_Commands()
 
 def send_command(team, bot_id, v_x, v_y, v_w, kick_power, dribble, chip_power=0):
 	"""
@@ -35,3 +39,6 @@ def send_command(team, bot_id, v_x, v_y, v_w, kick_power, dribble, chip_power=0)
 
 	# Publish the command packet
 	pub.publish(final_command)
+
+if __name__ == '__main__':
+	init_module()
