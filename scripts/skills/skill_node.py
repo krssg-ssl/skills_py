@@ -8,7 +8,7 @@ from krssg_ssl_msgs.msg import gr_Commands
 
 def init_module():
 	pub = rospy.Publisher('/bot_data', gr_Commands, queue_size=1000)
-	rospy.init_node('skills_node1', anonymous=False)
+	rospy.init_node('skills_node', anonymous=False)
 	gr_command = gr_Robot_Command()
 	final_command = gr_Commands()
 
