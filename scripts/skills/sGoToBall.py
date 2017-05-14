@@ -7,19 +7,19 @@ POINTPREDICTIONFACTOR = 2
 
 def execute(param,state,bot_id):
 	obs = []
-	for i in state.homeDetected:
-		if i>0:
-			o = obstacle()     
-			o.x=i.x
-			o.y=i.y
+	for i in range(0,len(state.homeDetected)):
+		if state.homeDetected[i]:
+			o = obstacle()               
+			o.x=state.homePos[i].x
+			o.y=state.homePos[i].y
 			o.radius=2*BOT_RADIUS
 			obs.append(o)
 
-	for j in state.awayDetected:
-		if j>0:
+	for j in range(0,len(state.awayDetected)):
+		if state.awayDetected[j]:
 			o = obstacle()
-			o.x=j.x
-			o.y=j.y
+			o.x=state.awayPos[j].x
+			o.y=state.awayPos[j].y
 			o.radius=2*BOT_RADIUS
 			obs.append(o)
 
@@ -78,18 +78,18 @@ def execute(param,state,bot_id):
     if param.GoToBallP.intercept == False:
     	if dist < DRIBBLER_BALL_THRESH:
     		if dist < 1.2*BOT_BALL_THRESH:
-    			return skill_node.send_command(bot_id, 0, 0, 0, 0, True)
+    			skill_node.send_command(bot_id, 0, 0, 0, 0, True)
     		else:
-    			return skill_node.send_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, True)
+    			skill_node.send_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, True)
 
     	else:
-    		return skill_node.send_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, False)
+    		skill_node.send_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, False)
 
  	else:
  		if dist > BOT_BALL_THRESH:
- 			return skill_node.send_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), 0, 0, False)
+ 			skill_node.send_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), 0, 0, False)
  		else:
- 			return skill_node.send_command(bot_id, 0, 0, 0, 0,True)
+ 			skill_node.send_command(bot_id, 0, 0, 0, 0,True)
 
 
 
