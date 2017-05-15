@@ -15,6 +15,6 @@ def execute(param, state, bot_id):
  
     dist = Vector2D(ballPos, botPos)
     if(dist < DRIBBLER_BALL_THRESH):
-      return getRobotCommandMessage(botID, 0, 0, omega, 0, true)
+		return skill_node.send_command (state.isteamyellow, bot_id, 0, 0, omega, 0, true)
     else:
-      return getRobotCommandMessage(botID, 0, 0, omega, 0, false)
+      return skill_node.send_command (state.isteamyellow, bot_id, 0, 0, omega, 0, false)
