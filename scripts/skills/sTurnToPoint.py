@@ -21,6 +21,6 @@ def execute(param, state, bot_id):
     dist = vec.dist(ballPos, botPos)
 
     if dist < DRIBBLER_BALL_THRESH * 4:
-        return skill_node.send_command(bot_id, v_x, 0, omega, 0, True)
+        skill_node.send_command(bot_id, v_x, 0, omega, 0, True)
     else:
-        return skill_node.send_command(bot_id, 0, 0, omega, 0, False)
+        skill_node.send_command(bot_id, 0, 0, omega, 0, False)
