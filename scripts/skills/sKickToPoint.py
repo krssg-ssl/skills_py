@@ -22,7 +22,7 @@ def execute(param, state, bot_id):
         paramt.TurnToPointP.max_omega = MAX_BOT_OMEGA*3
         return sTurnToPoint.execute(paramt, state, bot_id)
 
-    skill_node.send_command(state.isteamyellow, bot_id ,0, 0, 0, param.KickToPointP.power, false)
+    skill_node.send_command(state.isteamyellow, bot_id ,0, 0, 0, param.KickToPointP.power, False)
 
 
     
