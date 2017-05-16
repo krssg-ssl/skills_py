@@ -46,8 +46,8 @@ def execute(param, state, bot_id):
 
     if profileFactor < MIN_BOT_SPEED :
         profileFactor = MIN_BOT_SPEED
-	elif profileFactor > MAX_BOT_SPEED :
-        profileFactor = MAX_BOT_SPEED
+    elif profileFactor > MAX_BOT_SPEED :
+		profileFactor = MAX_BOT_SPEED
 
     if dist < BOT_POINT_THRESH :
         if (turnAngleLeft) > -DRIBBLER_BALL_ANGLE_RANGE  and (turnAngleLeft) < DRIBBLER_BALL_ANGLE_RANGE :
