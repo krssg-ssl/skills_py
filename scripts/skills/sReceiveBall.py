@@ -26,6 +26,6 @@ def execute(param, state, bot_id):
      param.GoToPointP.finalslope = 0
      param.GoToPointP(param)
      
-	skill_node.send_command(state.isteamyellow, bot_ID, 0, 0, 0, 0, False)
+     skill_node.send_command(state.isteamyellow, bot_ID, 0, 0, 0, 0, False)
 	
 execute.framecount=1
