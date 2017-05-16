@@ -32,4 +32,4 @@ def execute(param, state, bot_id):
 
         
 
-    skill_node.send_command(state.isteamyellow, botID, v_x, v_y, omega, 0, true)
+    skill_node.send_command(state.isteamyellow, botID, v_x, v_y, omega, 0, True)
