@@ -2,9 +2,9 @@ import skill_node
 import math
 
 def execute(param, state, bot_id):
-     point = Vector2D(param.DribbleToPointP.x, param.DribbleToPointP.y)
-     botPos = Vector2D(state.homePos[botID].x, state.homePos[botID].y)
-     ballPos = Vector2D(state.ballPos.x, state.ballPos.y)
+     point = Vector2D(int(param.DribbleToPointP.x), int(param.DribbleToPointP.y))
+     botPos = Vector2D(int(state.homePos[botID].x), int(state.homePos[botID].y))
+     ballPos = Vector2D(int(state.ballPos.x), int(state.ballPos.y))
      ballSlope = ballPos.angle(botPos)
      ballDist  = ballPos.dist(botPos)
      ballTheta = math.fabs(ballDist.normalizeAngle(state.homePos[botID].theta - ballSlope));
@@ -13,11 +13,11 @@ def execute(param, state, bot_id):
 
      obs=[]
      o=obstacle()
-     for i in xrange (len(state.homeDetected)):
-	o.x = state.homePos[i].x
-	o.y = state.homePos[i].y
-	o.radius = 3 * BOT_RADIUS
-	obs.append(o)
+
+
+     for i,bot in enumerate(state.homePos):
+	    if state.homeDetected[i]:
+		obs.append(Obstacle(bot.x, bot.y, 0, 0, 3*BOT_RADIUS))
 
      for i in xrange(len(state.homeDetected)):
         o.x = state.awayPos[i - len(state.homeDetected)].x
