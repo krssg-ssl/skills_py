@@ -1,6 +1,8 @@
 import skill_node
 import math
-
+import sys
+sys.path.insert(0, '../../../navigation_py/scripts/navigation')
+import obstacle
 def execute(param, state, bot_id):
     DEFEND_RADIUS = 50.0
     ob=Vector2D()
@@ -8,19 +10,14 @@ def execute(param, state, bot_id):
     point_ball_angle = atan2(state.ballPos.y-param.DefendPointP.y,state.ballPos.x-param.DefendPointP.x)
     dpoint =Vector2D(param.DefendPointP.x + (param.DefendPointP.radius)*cos(point_ball_angle) , param.DefendPointP.y + (param.DefendPointP.radius)*sin(point_ball_angle))
     obs = []
-    o=obstacle() #assuming a class that defines obstacle  
-    for i in  range (0 , len(state.homeDetected)) :
-        o.x = state.homePos[i].x
-        o.y = state.homePos[i].y
-        o.radius = 3 * BOT_RADIUS
-        obs.append(o)
+    for i,bot in enumerate(state.homePos):
+        if state.homeDetected[i]:
+            obs.append(Obstacle(bot.x, bot.y, 0, 0, 3*BOT_RADIUS))
 
 
-    for i in range (len(state.homeDetected) , len(state.homeDetected) + len(state.awayDetected) ):
-        o.x = state.awayPos[i - len(state.homeDetected)].x
-        o.y = state.awayPos[i - len(state.homeDetected)].y
-        o.radius = 3 * BOT_RADIUS
-        obs.append(o)
+    for j,bot1 in enumerate(state.awayPos):
+        if state.awayDetected[j]:
+            obs.append(Obstacle(bot1.x, bot1.y, 0, 0, 3*BOT_RADIUS))
 
     point=Vector2D()
     nextWP = Vector2D()
