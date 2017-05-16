@@ -4,8 +4,8 @@ import math
 def execute(param, state, botID):
     pCopy = copy(param)
     ballInitialpos=Vector2D()
-    botPos=Vector2D(state.homePos[botID].x, state.homePos[botID].y);
-    ballPos=Vector2D(state.ballPos.x, state.ballPos.y);
+    botPos=Vector2D(int(state.homePos[botID].x), int(state.homePos[botID].y))
+    ballPos=Vector2D(int(state.ballPos.x), int(state.ballPos.y))
     ballFinalpos=Vector2D(); botDestination=Vector2D(); point=Vector2D(); nextWP=Vector2D(); nextNWP=Vector2D()
     '''
     if(execute.framecount == 1):
@@ -40,15 +40,15 @@ def execute(param, state, botID):
 
     obs=[]
     o=obstacle()
-    for i in xrange(len(state.homeDetected)):
-      o.x = state.homePos[i].x
-      o.y = state.homePos[i].y
-      o.radius = 2 * BOT_RADIUS
-      obs.append(o)
+
+
+    for i,bot in enumerate(state.homePos):
+      if state.homeDetected[i]:
+        obs.append(Obstacle(bot.x, bot.y, 0, 0, 2*BOT_RADIUS))
 
     for i in xrange (len(state.homeDetected), len(state.homeDetected) + len(state.awayDetected)):
-      o.x = state.awayPos[i - state.homeDetected.size()].x;
-      o.y = state.awayPos[i - state.homeDetected.size()].y;
+      o.x = state.awayPos[i - len(state.homeDetected)].x;
+      o.y = state.awayPos[i - len(state.homeDetected)].y;
       o.radius = 2 * BOT_RADIUS;
       obs.append(o);
 
