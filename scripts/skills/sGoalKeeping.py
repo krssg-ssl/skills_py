@@ -2,9 +2,8 @@ import skill_node
 import math
 
 def execute(param, state, botID):
-	 SParam pCopy = param
-     ballInitialpos=Vector2D()
-    gr_Robot_Command comm;
+    pCopy = copy(param)
+    ballInitialpos=Vector2D()
     botPos=Vector2D(state.homePos[botID].x, state.homePos[botID].y);
     ballPos=Vector2D(state.ballPos.x, state.ballPos.y);
     ballFinalpos=Vector2D(); botDestination=Vector2D(); point=Vector2D(); nextWP=Vector2D(); nextNWP=Vector2D()
@@ -70,7 +69,7 @@ def execute(param, state, botID):
 		 v_t = -4.5
     profileFactor = MAX_BOT_SPEED
     if(profileFactor < MIN_BOT_SPEED):
-      profileFactor = MIN_BOT_SPEED:
+      profileFactor = MIN_BOT_SPEED
     v_x = profileFactor * math.sin(theta)
     v_y = profileFactor * math.cos(theta)
 
