@@ -11,17 +11,19 @@ def execute(param, state, bot_id):
      #   if(ballDist > BOT_BALL_THRESH || ballTheta > DRIBBLER_BALL_ANGLE_RANGE):
      #     return goToBall(param, state, botID) # No python equivalent found
 
-     obs=[]
+     obs=[]; j=0
      o=obstacle()
 
 
      for i,bot in enumerate(state.homePos):
 	    if state.homeDetected[i]:
 		obs.append(Obstacle(bot.x, bot.y, 0, 0, 3*BOT_RADIUS))
+		j+=1
 
-     for i in xrange(len(state.homeDetected)):
-        o.x = state.awayPos[i - len(state.homeDetected)].x
-        o.y = state.awayPos[i - len(state.homeDetected)].y
+     for i,bot in enumerate(state.homePos):
+       if state.homeDetected[i]:
+        o.x = state.awayPos[i - (j-1)].x
+        o.y = state.awayPos[i - (j-1)].y
         o.radius = 3 * BOT_RADIUS
         obs.append(o)
         
