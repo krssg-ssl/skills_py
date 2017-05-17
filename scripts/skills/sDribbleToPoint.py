@@ -12,7 +12,6 @@ def execute(param, state, bot_id):
      #     return goToBall(param, state, botID) # No python equivalent found
 
      obs=[]; j=0
-     o=obstacle()
 
 
      for i,bot in enumerate(state.homePos):
@@ -20,11 +19,12 @@ def execute(param, state, bot_id):
 		obs.append(Obstacle(bot.x, bot.y, 0, 0, 3*BOT_RADIUS))
 		j+=1
 
-     for i,bot in enumerate(state.homePos):
+     for i in state.homePos:
        if state.homeDetected[i]:
-        o.x = state.awayPos[i - (j-1)].x
-        o.y = state.awayPos[i - (j-1)].y
-        o.radius = 3 * BOT_RADIUS
+        x = state.awayPos[i - (j-1)].x
+        y = state.awayPos[i - (j-1)].y
+        radius = 3 * BOT_RADIUS
+        o=Obstacle(x,y,0,0,radius)
         obs.append(o)
         
         
