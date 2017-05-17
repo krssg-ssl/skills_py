@@ -39,7 +39,6 @@ def execute(param, state, botID):
     point.y = pCopy.GoalKeepingP.y;
 
     obs=[]
-    o=obstacle()
 
 
     for i,bot in enumerate(state.homePos):
@@ -47,10 +46,10 @@ def execute(param, state, botID):
         obs.append(Obstacle(bot.x, bot.y, 0, 0, 2*BOT_RADIUS))
 
     for i in xrange (len(state.homeDetected), len(state.homeDetected) + len(state.awayDetected)):
-      o.x = state.awayPos[i - len(state.homeDetected)].x;
-      o.y = state.awayPos[i - len(state.homeDetected)].y;
-      o.radius = 2 * BOT_RADIUS;
-      obs.append(o);
+      x = state.awayPos[i - len(state.homeDetected)].x;
+      y = state.awayPos[i - len(state.homeDetected)].y;
+      radius = 2 * BOT_RADIUS;
+      obs.append(Obstacle(x,y,0,0,radius))
 
 
     pathplanner = MergeSCurve()
