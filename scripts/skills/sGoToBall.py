@@ -13,11 +13,11 @@ def execute(param,state,bot_id):
     obs = []
     for i,bot in enumerate(state.homePos):
         if state.homeDetected[i]:
-            obs.append(Obstacle(bot.x, bot.y, 0, 0, 3*BOT_RADIUS))
+            obs.append(Obstacle(bot.x, bot.y, 0, 0, 2*BOT_RADIUS))
 
     for j, bot1 in enumerate(state.awayPos):
         if state.awayDetected[j]:
-            obs.append(Obstacle(bot1.x, bot1.y, 0, 0, 3*BOT_RADIUS))
+            obs.append(Obstacle(bot1.x, bot1.y, 0, 0, 2*BOT_RADIUS))
 
 
     ballfinalpos = Vector2D()
