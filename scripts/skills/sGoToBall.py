@@ -1,5 +1,9 @@
 import skill_node
 import math
+import sys
+sys.path.insert(0, '../../../navigation_py/scripts/navigation')
+import obstacle
+
 
 POINTPREDICTIONFACTOR = 2
 
@@ -7,26 +11,18 @@ POINTPREDICTIONFACTOR = 2
 
 def execute(param,state,bot_id):
     obs = []
-    for i in range(0,len(state.homeDetected)):
+    for i,bot in enumerate(state.homePos):
         if state.homeDetected[i]:
-            o = obstacle()     
-            o.x=state.homePos[i].x
-            o.y=state.homePos[i].y
-            o.radius=2*BOT_RADIUS
-            obs.append(o)
+            obs.append(Obstacle(bot.x, bot.y, 0, 0, 3*BOT_RADIUS))
 
-    for j in range(0,len(state.awayDetected)):
+    for j, bot1 in enumerate(state.awayPos):
         if state.awayDetected[j]:
-            o = obstacle()
-            o.x=state.awayPos[j].x
-            o.y=state.awayPos[j].y
-            o.radius=2*BOT_RADIUS
-            obs.append(o)
+            obs.append(Obstacle(bot1.x, bot1.y, 0, 0, 3*BOT_RADIUS))
 
 
     ballfinalpos = Vector2D()
-    ballfinalpos.x = state.ballPos.x + (state.ballVel.x)/POINTPREDICTIONFACTOR
-    ballfinalpos.y = state.ballPos.y + (state.ballVel.y)/POINTPREDICTIONFACTOR
+    ballfinalpos.x = int(state.ballPos.x + (state.ballVel.x)/POINTPREDICTIONFACTOR)
+    ballfinalpos.y = int(state.ballPos.y + (state.ballVel.y)/POINTPREDICTIONFACTOR)
 
     point = Vector2D()
     nextWP = Vector2D()
@@ -34,12 +30,12 @@ def execute(param,state,bot_id):
 
     pathplanner = MergeSCurve()
 
-    botPos = Vector2D(state.homePos[bot_id].x,state.homePos[bot_id].y)
+    botPos = Vector2D(int(state.homePos[bot_id].x),int(state.homePos[bot_id].y))
 
     pathplanner.plan(botPos,ballfinalpos,nextWP,nextNWP,obs,len(obs),bot_id,True)
 
 
-    ballPos = Vector2D(state.ballPos.x, state.ballPos.y)
+    ballPos = Vector2D(int(state.ballPos.x), int(state.ballPos.y))
     dist = ballPos.dist(botPos,ballPos)
     maxDisToTurn = dist - 3.5 * BOT_BALL_THRESH
     angleToTurn = ballPos.normalizeAngle((ballPos.angle(ballPos,botPos))-(state.homePos[bot_id].theta))
