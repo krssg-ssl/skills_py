@@ -3,7 +3,7 @@ import maths
 import sGoToBall
 import sTurnToPoint
 def execute(param, state, bot_id):
-	botPos=Vector2D(state.homePos[bot_id].x, state.homePos[bot_id].y)
+    botPos=Vector2D(state.homePos[bot_id].x, state.homePos[bot_id].y)
     ballPos=Vector2D(state.ballPos.x, state.ballPos.y)
     destPoint=Vector2D(param.KickToPointP.x, param.KickToPointP.y)
     ob = Vector2D()
