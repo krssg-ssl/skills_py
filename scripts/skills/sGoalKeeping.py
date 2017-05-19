@@ -42,13 +42,13 @@ def execute(param, state, botID):
 
 
     for i,bot in enumerate(state.homePos):
-      if state.homeDetected[i]:
+      if state.homeDetected[i] and i != botID:
         obs.append(Obstacle(bot.x, bot.y, 0, 0, 2*BOT_RADIUS))
 
-    for i in xrange (len(state.homeDetected), len(state.homeDetected) + len(state.awayDetected)):
+    for i in xrange (len(state.awayDetected)):
       x = state.awayPos[i - len(state.homeDetected)].x;
       y = state.awayPos[i - len(state.homeDetected)].y;
-      radius = 2 * BOT_RADIUS;
+      radius = 3.3 * BOT_RADIUS;
       obs.append(Obstacle(x,y,0,0,radius))
 
 
@@ -65,7 +65,7 @@ def execute(param, state, botID):
       if(rot_theta < 45):
         v_t = -rot_theta / 10
       else:
-		 v_t = -4.5
+        v_t = -4.5
     profileFactor = MAX_BOT_SPEED
     if(profileFactor < MIN_BOT_SPEED):
       profileFactor = MIN_BOT_SPEED
