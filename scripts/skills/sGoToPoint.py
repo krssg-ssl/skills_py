@@ -2,8 +2,8 @@ import skill_node
 import math
 import sys
 
-sys.path.append('/home/kv/catkin_ws/src/navigation_py/scripts/navigation/')
-sys.path.append('/home/kv/catkin_ws/src/plays_py/scripts/utils/')
+sys.path.append('../../../navigation_py/scripts/navigation/')
+sys.path.append('../../../plays_py/scripts/utils/')
 from wrapperpy import MergeSCurve, Vector_Obstacle
 from obstacle import Obstacle
 from config import *
