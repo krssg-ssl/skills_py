@@ -42,7 +42,7 @@ class BotCollisionError(ObstacleCollisionError):
 
 def can_collide(bot, obstacle, isbot = True):
 		min_dist = BOT_RADIUS * (2 if isbot else 1)
-		if (distbot.x - obstacle.x)**2 + (bot.y - obstacle.y)**2 <= min_dist**2:
+		if (bot.x - obstacle.x)**2 + (bot.y - obstacle.y)**2 <= min_dist**2:
 				return True
 		else:
 				return False
