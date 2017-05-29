@@ -97,14 +97,14 @@ def execute(param,state,bot_id, pub):
     if param.GoToPointP.align == False:
         if distan < DRIBBLER_BALL_THRESH:
             if distan < 2*BOT_BALL_THRESH:
-                skill_node.send_command(pub, state.isteamyellow, bot_id, 0, 0, 0, 0, True)
+                skill_node.send_command(pub, state, get_command(bot_id, 0, 0, 0, 0, True))
             else:
-                skill_node.send_command(pub, state.isteamyellow, bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, True)
+                skill_node.send_command(pub, state, get_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, True))
         else:
-            skill_node.send_command(pub, state.isteamyellow, bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, False)
+            skill_node.send_command(pub, state, get_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), omega, 0, False))
     else:
         if distan > BOT_BALL_THRESH/4:
-            skill_node.send_command(pub, state.isteamyellow, bot_id, speed * math.sin(-theta), speed * math.cos(-theta), 0, 0, False)
+            skill_node.send_command(pub, state, get_command(bot_id, speed * math.sin(-theta), speed * math.cos(-theta), 0, 0, False))
         else:
-            skill_node.send_command(pub, state.isteamyellow, bot_id, 0, 0, 0, 0,True)
+            skill_node.send_command(pub, state, get_command(bot_id, 0, 0, 0, 0,True))
 

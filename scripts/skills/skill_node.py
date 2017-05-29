@@ -41,11 +41,14 @@ class BotCollisionError(ObstacleCollisionError):
 
 
 def can_collide(bot, obstacle, isbot = True):
-	min_dist = BOT_RADIUS * (2 if isbot else 1)
-	if (distbot.x - obstacle.x)**2 + (bot.y - obstacle.y)**2 <= min_dist**2:
-		return True
-	else:
-		return False
+		min_dist = BOT_RADIUS * (2 if isbot else 1)
+		if (distbot.x - obstacle.x)**2 + (bot.y - obstacle.y)**2 <= min_dist**2:
+				return True
+		else:
+				return False
+
+def get_command(botId, v_x, v_y, v_w, kick_power, dribble, chip_power = 0):
+		return gr_Robot_Command(botId, kick_power, chip_power, v_y, v_x, v_w, dribble, 0)
 
 def send_command(pub, state, gr_robot_command):
 		"""
@@ -62,7 +65,7 @@ def send_command(pub, state, gr_robot_command):
 		# signs and trig fns might need adjustment
 		botVel.x = gr_robot_command.veltangent*math.cos(theta) + gr_robot_command.velnormal*math.sin(theta)
 		botVel.y = gr_robot_command.veltangent*math.sin(theta) - gr_robot_command.velnormal*math.cos(theta)
-		dt = 1/30		# Needs to be adjusted
+		dt = 1/30       # Needs to be adjusted
 
 		# Currently using first order approximation (will change to second order approx later)
 		newpos = Vector2D()
