@@ -43,9 +43,9 @@ class BotCollisionError(ObstacleCollisionError):
 def can_collide(bot, obstacle, isbot = True):
 		min_dist = BOT_RADIUS * (2 if isbot else 1)
 		if (bot.x - obstacle.x)**2 + (bot.y - obstacle.y)**2 <= min_dist**2:
-			return True
+				return True
 		else:
-			return False
+				return False
 
 def get_command(botId, v_x, v_y, v_w, kick_power, dribble, chip_power = 0):
 		return gr_Robot_Command(botId, kick_power, chip_power, v_y, v_x, v_w, dribble, 0)
@@ -100,6 +100,6 @@ def send_command(pub, state, gr_robot_command):
 		# print 'botId: {}: [{}]\n'.format(bot_id, final_command.timestamp)
 		# print 'vel_x: {}\nvel_y: {}\nvel_w: {}\n'.format(v_x, v_y, v_w)
 		# print 'kick_power: {}\nchip_power: {}\ndribble_speed:{}\n\n'.format(kick_power, chip_power, dribble)
-	
+
 		# Publishing the command
 		publish_command(pub, state.isteamyellow, gr_robot_command)
