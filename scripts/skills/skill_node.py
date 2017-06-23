@@ -51,9 +51,14 @@ def get_command(botId, v_x, v_y, v_w, kick_power, dribble, chip_power = 0):
 		return gr_Robot_Command(botId, kick_power, chip_power, v_y, v_x, v_w, dribble, 0)
 
 def send_command(pub, state, gr_robot_command):
-		"""
-				team : 'True' if the team is yellow 
-		"""
+		
+		# Local method publish_command
+		def publish_command(pub, isteamyellow, gr_robot_command):
+			final_command = gr_Commands()
+			final_command.timestamp      = rospy.get_rostime().secs
+			final_command.isteamyellow   = isteamyellow
+			final_command.robot_commands = gr_robot_command
+			pub.publish(final_command)
 
 		# Check for validity of command
 		# Constants need to be tuned
@@ -75,29 +80,26 @@ def send_command(pub, state, gr_robot_command):
 		for i, bot in enumerate(state.homePos):
 			if i != botId:
 				if can_collide(newpos, bot):
+					publish_command(pub, state.isteamyellow, get_command(botId, 0, 0, 0, 0, 0))
 					raise BotCollisionError(botId, oldpos, newpos, gr_robot_command, i, True)
 
 		for i, bot in enumerate(state.awayPos):
 			if can_collide(newpos, bot):
+				publish_command(pub, state.isteamyellow, get_command(botId, 0, 0, 0, 0, 0))
 				raise BotCollisionError(botId, oldpos, newpos, gr_robot_command, i, False)
 
 		if ((-HALF_FIELD_MAXX < newpos.x < HALF_FIELD_MAXX) and (-HALF_FIELD_MAXY < newpos.y < HALF_FIELD_MAXY)) is False:
+			publish_command(pub, state.isteamyellow, get_command(botId, 0, 0, 0, 0, 0))
 			raise BotOutOfBoundsError(botId, oldpos, newpos, gr_robot_command)
 
 		# Conversion
 		gr_robot_command.veltangent /= 1000
 		gr_robot_command.velnormal  /= 1000
 
-		# Creating the gr_Command to be published
-		final_command = gr_Commands()
-		final_command.timestamp      = rospy.get_rostime().secs
-		final_command.isteamyellow   = state.isteamyellow
-		final_command.robot_commands = gr_robot_command
-
 		# Log the commands
 		# print 'botId: {}: [{}]\n'.format(bot_id, final_command.timestamp)
 		# print 'vel_x: {}\nvel_y: {}\nvel_w: {}\n'.format(v_x, v_y, v_w)
 		# print 'kick_power: {}\nchip_power: {}\ndribble_speed:{}\n\n'.format(kick_power, chip_power, dribble)
 
-		# Publish the command packet
-		pub.publish(final_command)
+		# Publishing the command
+		publish_command(pub, state.isteamyellow, gr_robot_command)
